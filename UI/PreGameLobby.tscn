@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/PreGameLobby.gd" type="Script" id=1]
+[ext_resource path="res://themes/pixel.tres" type="Theme" id=2]
+
+[node name="PreGameLobby" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerList" type="ItemList" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -61.0
+margin_top = -62.0
+margin_right = 61.0
+margin_bottom = 27.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = 179.0
+margin_top = 169.0
+margin_right = 301.0
+margin_bottom = 189.0
+
+[node name="QuitButton" type="Button" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 3.77869
+margin_top = -6.76024
+margin_right = 46.7788
+margin_bottom = 6.23976
+text = "Exit Lobby"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -46.6958
+margin_top = -6.76024
+margin_right = -3.69568
+margin_bottom = 6.23976
+text = "Start game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Panel/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="Panel/StartButton" to="." method="_on_StartButton_pressed"]

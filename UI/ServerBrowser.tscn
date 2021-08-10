@@ -1,0 +1,100 @@
+[gd_scene format=2]
+
+[node name="ServerBrowser" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 126.115
+margin_top = 60.8
+margin_right = 209.115
+margin_bottom = 93.8
+rect_scale = Vector2( 0.4, 0.4 )
+custom_constants/separation = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Username" type="LineEdit" parent="Menu"]
+margin_right = 562.0
+margin_bottom = 24.0
+max_length = 15
+placeholder_text = "Username"
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Label2" type="Label" parent="Menu"]
+margin_top = 31.0
+margin_right = 562.0
+margin_bottom = 45.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Host" type="Button" parent="Menu"]
+margin_top = 52.0
+margin_right = 562.0
+margin_bottom = 72.0
+text = "Host"
+
+[node name="LocalIP" type="Label" parent="Menu"]
+margin_top = 79.0
+margin_right = 562.0
+margin_bottom = 93.0
+text = "Local IP address"
+
+[node name="Label" type="Label" parent="Menu"]
+margin_top = 100.0
+margin_right = 562.0
+margin_bottom = 114.0
+
+[node name="Join" type="Button" parent="Menu"]
+margin_top = 121.0
+margin_right = 562.0
+margin_bottom = 141.0
+text = "Join"
+
+[node name="Connect" type="HBoxContainer" parent="Menu"]
+margin_top = 148.0
+margin_right = 562.0
+margin_bottom = 172.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="To" type="Label" parent="Menu/Connect"]
+margin_top = 5.0
+margin_right = 19.0
+margin_bottom = 19.0
+text = "To:"
+
+[node name="IP" type="LineEdit" parent="Menu/Connect"]
+margin_left = 23.0
+margin_right = 323.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 300, 0 )
+placeholder_text = "127.0.0.1"
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Error" type="Label" parent="Menu"]
+margin_top = 179.0
+margin_right = 562.0
+margin_bottom = 193.0
+custom_colors/font_color = Color( 0.8, 0.2, 0.2, 1 )
+text = "Error: cannot connect to server"
+
+[connection signal="text_entered" from="Menu/Username" to="." method="_on_text_entered"]

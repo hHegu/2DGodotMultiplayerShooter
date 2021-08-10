@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UI/PreGameLobby.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://UI/ServerBrowser.tscn" type="PackedScene" id=3]
+
+[node name="Main" type="Node"]
+script = ExtResource( 2 )
+
+[node name="ServerBrowser" parent="." instance=ExtResource( 3 )]
+
+[node name="PreGameLobby" parent="." instance=ExtResource( 1 )]
+visible = false
+
+[node name="UI" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="World" type="Node" parent="."]
+
+[connection signal="text_entered" from="ServerBrowser/Menu/Username" to="." method="_on_text_entered"]
+[connection signal="pressed" from="ServerBrowser/Menu/Host" to="." method="_on_Host_pressed"]
+[connection signal="pressed" from="ServerBrowser/Menu/Join" to="." method="_on_Join_pressed"]
+
+[editable path="ServerBrowser"]
