@@ -9,6 +9,30 @@ script = ExtResource( 2 )
 
 [node name="ServerBrowser" parent="." instance=ExtResource( 3 )]
 
+[node name="Username" parent="ServerBrowser/Menu" index="0"]
+margin_right = 563.0
+
+[node name="Label2" parent="ServerBrowser/Menu" index="1"]
+margin_right = 563.0
+
+[node name="Host" parent="ServerBrowser/Menu" index="2"]
+margin_right = 563.0
+
+[node name="LocalIP" parent="ServerBrowser/Menu" index="3"]
+margin_right = 563.0
+
+[node name="Label" parent="ServerBrowser/Menu" index="4"]
+margin_right = 563.0
+
+[node name="Join" parent="ServerBrowser/Menu" index="5"]
+margin_right = 563.0
+
+[node name="Connect" parent="ServerBrowser/Menu" index="6"]
+margin_right = 563.0
+
+[node name="Error" parent="ServerBrowser/Menu" index="7"]
+margin_right = 563.0
+
 [node name="PreGameLobby" parent="." instance=ExtResource( 1 )]
 visible = false
 

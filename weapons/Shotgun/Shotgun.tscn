@@ -35,11 +35,13 @@ tracks/1/keys = {
 position = Vector2( -1.46793, 0.420925 )
 script = ExtResource( 2 )
 fire_rate = 0.7
-bullet_lifetime = 0.24
-bullets_fired = 10
-accuracy = 25.0
+bullet_lifetime = 0.3
+bullets_fired = 12
+accuracy = 20.0
 speed = 6.0
 bullet_speed_randomness = 0.35
+bullet_color = Color( 1, 0.980392, 0.494118, 1 )
+bullet_trail_length = 10
 
 [node name="Node2D" type="Node2D" parent="."]
 

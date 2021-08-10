@@ -15,11 +15,18 @@ var spawn = null
 
 var my_peer: NetworkedMultiplayerENet
 
+var network_tick: Timer
+
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_on_network_peer_connected")
 	get_tree().connect("network_peer_disconnected", self, "_on_network_peer_disconnected")
 	get_tree().connect("connected_to_server", self, "_on_connected_to_server")
 	get_tree().connect("server_disconnected", self, "_on_server_disconnected")
+	network_tick = Timer.new()
+	network_tick.wait_time = 0.03
+	network_tick.autostart = true
+	add_child(network_tick)
+
 
 func create_server(username_chosen):
 	var peer = NetworkedMultiplayerENet.new()

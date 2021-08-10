@@ -8,11 +8,6 @@ onready var hp_bar: TextureProgress = $HPBar
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var respawn_timer: Timer = $RespawnTimer
 
-enum {
-	weapon1,
-	weapon2
-}
-
 var death_effect = preload("res://player/DeathEffect.tscn")
 
 var health := MAX_HEALTH
@@ -35,6 +30,7 @@ func _ready():
 	
 	_on_network_peer_connected("")
 	hp_bar.value = health
+
 
 func _on_network_peer_connected(id):
 	if is_network_master():

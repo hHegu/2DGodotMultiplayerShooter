@@ -6,7 +6,7 @@ onready var slot_2 = $WeaponSlot2
 
 var weapons = [
 	Weapons.w_assault_rifle,
-	Weapons.w_shotgun
+	Weapons.w_sniper
 ]
 
 var current_weapon := 0
@@ -34,7 +34,6 @@ func _physics_process(delta):
 	var weapon_1_pressed = Input.is_action_just_pressed("weapon_1")
 	var weapon_2_pressed = Input.is_action_just_pressed("weapon_2")
 	if weapon_1_pressed && current_weapon != 0 || weapon_2_pressed && current_weapon != 1:
-		print('POSAJDSALKJADSLKJDSA')
 		rpc("switch_weapon")
 
 

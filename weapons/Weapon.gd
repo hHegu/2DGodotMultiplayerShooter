@@ -11,6 +11,8 @@ export var accuracy := 1.0
 export var damage := 10
 export var speed := 8.0
 export var bullet_speed_randomness := 0.0
+export var bullet_color: Color = Color.white
+export var bullet_trail_length := 5
 
 var disabled := false
 
@@ -47,6 +49,9 @@ remotesync func shoot(to, id, r, bullet_speed):
 	bullet_instance.lifetime = bullet_lifetime
 	bullet_instance.damage = damage
 	bullet_instance.speed = bullet_speed
+	bullet_instance.bullet_color = bullet_color
+	bullet_instance.trail_length = bullet_trail_length
+	bullet_instance.fast_bullet_raycast_enabled = true
 	get_parent().get_parent().get_parent().get_parent().get_parent().add_child(bullet_instance)
 	
 func toggle_visibility(is_visible: bool):
