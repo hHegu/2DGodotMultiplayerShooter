@@ -5,7 +5,7 @@ onready var slot_1 = $WeaponSlot1
 onready var slot_2 = $WeaponSlot2
 
 var weapons = [
-	Weapons.w_assault_rifle,
+	Weapons.w_smg,
 	Weapons.w_sniper
 ]
 

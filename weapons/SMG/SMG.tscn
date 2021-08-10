@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://weapons/Weapon.gd" type="Script" id=1]
+[ext_resource path="res://assets/weapons/rifle.png" type="Texture" id=2]
+[ext_resource path="res://assets/weapons/SMG.png" type="Texture" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "fire"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( -1, 0 ), Vector2( 0, 0 ) ]
+}
+
+[node name="SMG" type="Node2D"]
+position = Vector2( -1.46793, 0.420925 )
+script = ExtResource( 1 )
+fire_rate = 0.02
+bullet_lifetime = 0.5
+accuracy = 6.0
+damage = 3
+bullet_speed_randomness = 0.2
+bullet_color = Color( 1, 0.47451, 0.952941, 1 )
+bullet_trail_length = 2
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="front" type="Sprite" parent="Node2D"]
+position = Vector2( 1.46793, -0.501697 )
+texture = ExtResource( 3 )
+vframes = 2
+frame = 1
+
+[node name="back" type="Sprite" parent="Node2D"]
+position = Vector2( 3.48651, -0.50509 )
+z_index = -1
+texture = ExtResource( 2 )
+hframes = 2
+vframes = 2
+frame = 1
+
+[node name="ShootPoint" type="Position2D" parent="Node2D"]
+position = Vector2( 5.51215, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 2.0
+anims/fire = SubResource( 1 )

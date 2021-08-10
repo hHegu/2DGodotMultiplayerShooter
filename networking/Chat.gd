@@ -5,18 +5,13 @@ var max_messages = 10
 var can_use = true
 
 func _on_screen_resized():
-	update_position()
-
-func update_position():
-	$Message.margin_top = -get_viewport().size.y / 4
-	$Message.margin_bottom = $Message.margin_top + 30
-	$ChatBox.margin_top = -get_viewport().size.y / 2
+	pass
+#	update_position()
 
 func _ready():
 	get_tree().connect("screen_resized", self, "_on_screen_resized")
 	
 	$Message.hide()
-	update_position()
 	
 	# Wait one frame before checking if we are the master of this node
 	# Otherwise it won't be defined yet
@@ -41,6 +36,7 @@ func _input(event):
 			else:
 				$MessagesFadeOutTimer.stop()
 				$Message.visible = true
+				$Message/TypedMessage.grab_focus()
 				$ChatBox.show()
 	else:
 		can_use = true

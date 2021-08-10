@@ -8,8 +8,8 @@ var username = ""
 var main = "res://Main.tscn"
 var map = "res://maps/Map.tscn"
 var player = "res://player/Player.tscn"
-var chat = load("res://networking/Chat.tscn").instance()
 var lobby = "res://Lobby.tscn"
+var game_ui = "res://UI/GameUI.tscn"
 
 var spawn = null
 
@@ -69,10 +69,17 @@ remotesync func trigger_loads():
 	get_tree().get_root().find_node("World", true, false).add_child(map_instance)
 	get_tree().get_root().find_node("PreGameLobby", true, false).visible = false
 	
+	var ui_instance = load(game_ui).instance()
+	get_tree().get_root().find_node("Main", true, false).add_child(ui_instance)
+	
 	yield(get_tree().create_timer(0.01), "timeout")
 	
 	if !get_tree().is_network_server() or spawn_for_host:
-		spawn = get_spawn_location()
+		var id = get_tree().get_network_unique_id()
+		print(id)
+		print(Lobby.players)
+		var team = Lobby.players[id]["team"]
+		spawn = get_spawn_location(team)
 		rpc("remote_load_game", get_tree().get_network_unique_id(), spawn.global_transform)
 
 remotesync func remote_load_game(id: int, spawn_pos: Transform2D):
@@ -81,11 +88,8 @@ remotesync func remote_load_game(id: int, spawn_pos: Transform2D):
 
 	spawn_player(id, spawn_pos)
 
-	get_tree().get_root().add_child(chat)
-
-
-func get_spawn_location():
-	var spawner = get_tree().get_root().find_node("Spawners", true, false)
+func get_spawn_location(team: String):
+	var spawner = get_tree().get_root().find_node("{team}_spawners".format({"team": team}), true, false)
 	randomize()
 	return spawner.get_child( randi() % spawner.get_child_count() )
 
@@ -119,5 +123,4 @@ func _on_connected_to_server():
 
 func _on_server_disconnected():
 	get_tree().change_scene(main)
-	get_node("/root/Chat").queue_free()
 	get_tree().set_network_peer(null)

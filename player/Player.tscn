@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://assets/8x8_main_character/walk.png" type="Texture" id=1]
 [ext_resource path="res://player/Player.gd" type="Script" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://assets/fonts/m5x7.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://assets/healthbar/healthbar1.png" type="Texture" id=9]
 [ext_resource path="res://assets/healthbar/healthbar2.png" type="Texture" id=10]
+[ext_resource path="res://player/FlagHandler.gd" type="Script" id=11]
+[ext_resource path="res://objectives/blue_flag_frames.tres" type="SpriteFrames" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 4
@@ -101,6 +103,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 6.94252, 6.63681 )
+
 [sub_resource type="Animation" id=16]
 resource_name = "hit"
 length = 0.3
@@ -119,7 +124,10 @@ tracks/0/keys = {
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
+collision_mask = 5
 script = ExtResource( 2 )
+speed = Vector2( 130, 200 )
+gravity = 500.0
 
 [node name="Controlled" type="ColorRect" parent="."]
 visible = false
@@ -162,11 +170,23 @@ script = ExtResource( 6 )
 
 [node name="WeaponSlot2" type="Node2D" parent="AnimatedSprite/Weapons"]
 
-[node name="Tween" type="Tween" parent="."]
+[node name="FlagHandler" type="Area2D" parent="AnimatedSprite"]
+show_behind_parent = true
+collision_layer = 0
+collision_mask = 16
+script = ExtResource( 11 )
 
-[node name="NetworkTickRate" type="Timer" parent="."]
-wait_time = 0.03
-autostart = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite/FlagHandler"]
+shape = SubResource( 17 )
+
+[node name="FlagSlot" type="AnimatedSprite" parent="AnimatedSprite/FlagHandler"]
+position = Vector2( -4.24264, -0.530331 )
+rotation = -0.380482
+scale = Vector2( -1, 1 )
+frames = ExtResource( 12 )
+frame = 2
+
+[node name="Tween" type="Tween" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 smoothing_enabled = true
@@ -188,8 +208,23 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/hit = SubResource( 16 )
 
+[node name="NetworkTickRate" type="Timer" parent="."]
+wait_time = 0.03
+autostart = true
+
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="OneWayDetector" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 5 )
+collision_mask = 4
+
+[connection signal="area_entered" from="AnimatedSprite/FlagHandler" to="AnimatedSprite/FlagHandler" method="_on_FlagHandler_area_entered"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_RespawnTimer_timeout"]
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]

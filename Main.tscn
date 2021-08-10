@@ -36,13 +36,6 @@ margin_right = 563.0
 [node name="PreGameLobby" parent="." instance=ExtResource( 1 )]
 visible = false
 
-[node name="UI" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="World" type="Node" parent="."]
 
 [connection signal="text_entered" from="ServerBrowser/Menu/Username" to="." method="_on_text_entered"]

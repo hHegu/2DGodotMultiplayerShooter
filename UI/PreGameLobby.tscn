@@ -26,46 +26,45 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -61.0
-margin_top = -62.0
+margin_top = -111.0
 margin_right = 61.0
 margin_bottom = 27.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="VBoxContainer" parent="."]
 margin_left = 179.0
 margin_top = 169.0
 margin_right = 301.0
-margin_bottom = 189.0
-
-[node name="QuitButton" type="Button" parent="Panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 3.77869
-margin_top = -6.76024
-margin_right = 46.7788
-margin_bottom = 6.23976
-text = "Exit Lobby"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 207.0
 
 [node name="StartButton" type="Button" parent="Panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -46.6958
-margin_top = -6.76024
-margin_right = -3.69568
-margin_bottom = 6.23976
+margin_right = 122.0
+margin_bottom = 13.0
 text = "Start game"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="Panel/QuitButton" to="." method="_on_QuitButton_pressed"]
+[node name="ChangeTeamButton" type="Button" parent="Panel"]
+margin_top = 17.0
+margin_right = 122.0
+margin_bottom = 30.0
+text = "Switch Team"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitButton" type="Button" parent="Panel"]
+margin_top = 34.0
+margin_right = 122.0
+margin_bottom = 47.0
+text = "Exit Lobby"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="Panel/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="Panel/ChangeTeamButton" to="." method="_on_ChangeTeamButton_pressed"]
+[connection signal="pressed" from="Panel/QuitButton" to="." method="_on_QuitButton_pressed"]

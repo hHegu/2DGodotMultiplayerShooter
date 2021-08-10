@@ -50,8 +50,8 @@ func _physics_process(delta):
 		return
 
 	var col = next_point_raycast.get_collider()
-	if col != null && col.has_method("on_hit"):
-		if col.is_dead:
+	if col != null && col.has_method("on_hit") && is_network_master():
+		if col.is_dead || col.get_network_master() == get_network_master():
 			return
 		col.on_hit(damage)
 		rpc('destroy', true)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/weapons/shotgun.png" type="Texture" id=1]
 [ext_resource path="res://weapons/Weapon.gd" type="Script" id=2]
-[ext_resource path="res://weapons/Shotgun/ShellEmitter.gd" type="Script" id=3]
+[ext_resource path="res://weapons/ShellEmitter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/shotgun_shell.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fire"
@@ -30,6 +31,20 @@ tracks/1/keys = {
 "update": 1,
 "values": [ 2, 3, 2 ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath("ShellEmitter")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "spawn_shell"
+} ]
+}
 
 [node name="Shotgun" type="Node2D"]
 position = Vector2( -1.46793, 0.420925 )
@@ -50,7 +65,7 @@ position = Vector2( 1.46793, -0.501697 )
 texture = ExtResource( 1 )
 hframes = 2
 vframes = 2
-frame = 2
+frame = 3
 
 [node name="back" type="Sprite" parent="Node2D"]
 position = Vector2( 2.36151, -0.50509 )
@@ -67,5 +82,5 @@ position = Vector2( 6.2996, 0 )
 playback_speed = 2.0
 anims/fire = SubResource( 1 )
 
-[node name="ShellEmitter" type="Node2D" parent="."]
-script = ExtResource( 3 )
+[node name="ShellEmitter" parent="." instance=ExtResource( 3 )]
+shell_texture = ExtResource( 4 )

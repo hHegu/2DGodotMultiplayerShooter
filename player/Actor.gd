@@ -5,7 +5,7 @@ class_name Actor
 const FLOOR_NORMAL := Vector2.UP
 
 export var speed := Vector2(150.0, 300.0)
-export var gravity := 900.0
+export var gravity := 700.0
 
 # Horizontal slowdown on the ground
 export var friction := 0.15
