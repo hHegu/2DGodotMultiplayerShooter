@@ -39,6 +39,10 @@ func _ready():
 	
 	_on_network_peer_connected("")
 	hp_bar.value = health
+	
+	if is_network_master():
+		var me = Lobby.players[get_network_master()]
+		rpc("share_name", me.username, me.team)
 
 
 func _on_network_peer_connected(id):

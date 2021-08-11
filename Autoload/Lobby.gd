@@ -50,4 +50,8 @@ func _on_network_peer_disconnected(id):
 	if get_tree().is_network_server():
 		players.erase(id)
 		rpc("set_players", players)
+		
+	var player = get_tree().get_root().find_node(str(id), true, false)
+	if player:
+		player.queue_free()
 

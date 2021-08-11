@@ -19,7 +19,6 @@ var network_tick: Timer
 
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_on_network_peer_connected")
-	get_tree().connect("network_peer_disconnected", self, "_on_network_peer_disconnected")
 	get_tree().connect("connected_to_server", self, "_on_connected_to_server")
 	get_tree().connect("server_disconnected", self, "_on_server_disconnected")
 	network_tick = Timer.new()
@@ -117,12 +116,6 @@ func _on_network_peer_connected(id):
 	pass
 #	if id != 1 and !spawn_for_host: # If this is not the server spawn the player
 #		spawn_player(id)
-
-
-func _on_network_peer_disconnected(id):
-#	if id != 1 or spawn_for_host:
-#		get_tree().get_root().find_node(str(id), true, false).queue_free()
-	pass
 
 
 func _on_connected_to_server():
