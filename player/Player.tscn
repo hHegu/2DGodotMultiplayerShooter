@@ -45,40 +45,40 @@ atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 8, 8 )
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 8, 8 )
+atlas = ExtResource( 5 )
+region = Rect2( 16, 0, 8, 8 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
-region = Rect2( 8, 0, 8, 8 )
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 8, 8 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
-region = Rect2( 16, 0, 8, 8 )
+atlas = ExtResource( 5 )
+region = Rect2( 8, 0, 8, 8 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
-region = Rect2( 24, 0, 8, 8 )
+region = Rect2( 0, 0, 8, 8 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 8, 8 )
+region = Rect2( 8, 0, 8, 8 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
-region = Rect2( 40, 0, 8, 8 )
+region = Rect2( 16, 0, 8, 8 )
 
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 8, 8 )
+atlas = ExtResource( 1 )
+region = Rect2( 24, 0, 8, 8 )
 
 [sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 5 )
-region = Rect2( 8, 0, 8, 8 )
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 8, 8 )
 
 [sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 5 )
-region = Rect2( 16, 0, 8, 8 )
+atlas = ExtResource( 1 )
+region = Rect2( 40, 0, 8, 8 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
@@ -87,20 +87,20 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"frames": [ SubResource( 6 ) ],
 "loop": true,
-"name": "walk",
-"speed": 10.0
+"name": "jump_down",
+"speed": 5.0
 }, {
-"frames": [ SubResource( 12 ), SubResource( 13 ) ],
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
 "loop": false,
 "name": "jump_up",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 14 ) ],
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
-"name": "jump_down",
-"speed": 5.0
+"name": "walk",
+"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=16]
@@ -223,6 +223,10 @@ one_shot = true
 enabled = true
 cast_to = Vector2( 0, 5 )
 collision_mask = 4
+
+[node name="JumpPredictTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 
 [connection signal="area_entered" from="AnimatedSprite/FlagHandler" to="AnimatedSprite/FlagHandler" method="_on_FlagHandler_area_entered"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_RespawnTimer_timeout"]

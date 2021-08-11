@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://objectives/red_flag_frames.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://objectives/Flag.gd" type="Script" id=2]
+[ext_resource path="res://assets/loading_circle.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.12427, 4.08946 )
@@ -35,6 +36,19 @@ shape = SubResource( 1 )
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 8.0
 one_shot = true
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 8.0
+margin_bottom = 8.0
+texture_progress = ExtResource( 3 )
+fill_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
 
 [connection signal="area_entered" from="BaseDetector" to="." method="_on_BaseDetector_area_entered"]
 [connection signal="area_exited" from="BaseDetector" to="." method="_on_BaseDetector_area_exited"]

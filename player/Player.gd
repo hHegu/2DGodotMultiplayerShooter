@@ -9,6 +9,7 @@ onready var hp_bar: TextureProgress = $HPBar
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var respawn_timer: Timer = $RespawnTimer
 onready var coyote_timer: Timer = $CoyoteTimer
+onready var jump_predict_timer: Timer = $JumpPredictTimer
 onready var one_way_detector: RayCast2D = $OneWayDetector
 onready var flag_holder = $AnimatedSprite/FlagHandler
 
@@ -48,7 +49,7 @@ func _ready():
 func _on_network_peer_connected(id):
 	if is_network_master():
 		var player = Lobby.players[get_network_master()]
-		rpc("share_name", $DisplayUsername.text, player.team)
+		rpc("share_name", player.username, player.team)
 
 remotesync func share_name(data, team):
 	$DisplayUsername.text = data
@@ -112,7 +113,7 @@ func _physics_process(delta):
 	var snap: Vector2 = Vector2.DOWN * 4.0 if direction.y == 0.0 else Vector2.ZERO
 	_velocity = move_and_slide_with_snap(_velocity, snap, FLOOR_NORMAL, true, 4, PI / 4, false)
 	
-	if Input.is_action_just_pressed("move_down") && one_way_detector.is_colliding():
+	if Input.is_action_pressed("move_down") && one_way_detector.is_colliding():
 		position = position + Vector2.DOWN
 		
 	
@@ -130,15 +131,21 @@ func handle_horizontal_movement() -> float:
 	
 func handle_jumps() -> float:
 	var can_jump = (is_on_floor() or !coyote_timer.is_stopped()) and jumps > 0
+	
+	var pressed_jump = Input.is_action_just_pressed("jump")
 	var vertical_input = (
 		-Input.get_action_strength("jump")
-		if Input.is_action_just_pressed("jump") and can_jump
+		if (pressed_jump or !jump_predict_timer.is_stopped()) and can_jump
 		else 0.0
 	)
 	
-	var jumped = vertical_input < 0
-	if jumped:
+	var jumped_successfully = vertical_input < 0
+	if jumped_successfully:
+		jump_predict_timer.stop()
 		jumps -= 1;
+		
+	if pressed_jump && !jumped_successfully:
+		jump_predict_timer.start()
 	
 	return vertical_input
 	

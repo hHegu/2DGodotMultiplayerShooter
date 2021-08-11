@@ -4,7 +4,7 @@ extends Node2D
 onready var slot_1 = $WeaponSlot1
 onready var slot_2 = $WeaponSlot2
 
-var weapons = [
+var my_weapons = [
 	Weapons.w_shotgun,
 	Weapons.w_sniper
 ]
@@ -23,6 +23,8 @@ func _ready():
 
 	get_parent().get_parent().connect("on_death", self, "_on_death")
 	get_parent().get_parent().connect("on_respawn", self, "enable_weapons")
+
+	get_tree().connect("network_peer_connected", self, "_on_network_peer_connected")
 	
 	if is_network_master():
 		rpc("randomize_weapons", get_network_master(), Weapons.get_random_weapon_indexes())
@@ -43,6 +45,11 @@ func _on_death():
 	disable_weapons()
 
 
+func _on_network_peer_connected(id):
+	if is_network_master():
+		rpc_id(id, "randomize_weapons", get_network_master(), my_weapons)
+
+
 func disable_weapons():
 	disabled = true
 	for w1 in slot_1.get_children():
@@ -60,6 +67,7 @@ func enable_weapons():
 
 
 remotesync func randomize_weapons(id, weapons):
+	my_weapons = weapons
 	for w1 in slot_1.get_children():
 		slot_1.remove_child(w1)
 		w1.queue_free()

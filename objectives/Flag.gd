@@ -6,7 +6,8 @@ onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var player_detector: CollisionShape2D = $PlayerDetector/CollisionShape2D
 onready var base_detector: Area2D = $BaseDetector
 onready var respawn_timer: Timer = $RespawnTimer
-
+onready var tween: Tween = $Tween
+onready var progress_bar: TextureProgress = $TextureProgress
 
 var is_in_base := true
 
@@ -18,6 +19,9 @@ var red_flag = preload("red_flag_frames.tres")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	respawn_timer.start()
+	tween.interpolate_property(progress_bar, "value", 100, 0, respawn_timer.wait_time)
+	tween.start()
+
 	if team == "red":
 		sprite.frames = red_flag
 	else:
@@ -45,12 +49,16 @@ func toggle_player_detector(enabled: bool):
 
 func _on_BaseDetector_area_entered(area):
 	respawn_timer.stop()
+	tween.stop_all()
+	progress_bar.value = 0
 	is_in_base = true
 	pass # Replace with function body.
 
 
 func _on_BaseDetector_area_exited(area):
 	respawn_timer.start()
+	tween.interpolate_property(progress_bar, "value", 100, 0, respawn_timer.wait_time)
+	tween.start()
 	is_in_base = false
 	pass # Replace with function body.
 

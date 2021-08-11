@@ -6,6 +6,7 @@ const FLOOR_NORMAL := Vector2.UP
 
 export var speed := Vector2(150.0, 300.0)
 export var gravity := 700.0
+export var max_speed := 250.0
 
 # Horizontal slowdown on the ground
 export var friction := 0.15
@@ -31,3 +32,4 @@ func _physics_process(delta: float) -> void:
 		_velocity.y = 0
 		_velocity.x = lerp(_velocity.x, 0, friction)
 
+	_velocity.y = clamp(_velocity.y, -INF, max_speed)
