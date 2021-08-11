@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://weapons/Weapon.gd" type="Script" id=1]
 [ext_resource path="res://assets/weapons/rifle.png" type="Texture" id=2]
 [ext_resource path="res://assets/weapons/SMG.png" type="Texture" id=3]
+[ext_resource path="res://assets/Sounds/Weapons/396015__morganpurkis__silenced-gunshot-4.wav" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fire"
@@ -18,6 +19,28 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( 0, 0 ), Vector2( -1, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [  ],
+"times": PoolRealArray(  )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AudioStreamPlayer:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [node name="SMG" type="Node2D"]
@@ -53,3 +76,8 @@ position = Vector2( 5.51215, 0 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
 anims/fire = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
+max_distance = 400.0

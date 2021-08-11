@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/399266__morganpurkis__simple-gunshot-reverb-test.wav-68cb23b977924536a58ee6037a00c4c1.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/Weapons/399266__morganpurkis__simple-gunshot-reverb-test.wav"
+dest_files=[ "res://.import/399266__morganpurkis__simple-gunshot-reverb-test.wav-68cb23b977924536a58ee6037a00c4c1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

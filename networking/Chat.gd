@@ -4,13 +4,8 @@ var max_messages = 10
 
 var can_use = true
 
-func _on_screen_resized():
-	pass
-#	update_position()
 
 func _ready():
-	get_tree().connect("screen_resized", self, "_on_screen_resized")
-	
 	$Message.hide()
 	
 	# Wait one frame before checking if we are the master of this node
@@ -19,6 +14,7 @@ func _ready():
 	
 	if get_tree().is_network_server():
 		rpc("send_message_online", "-- Server is running --", Color(1, 1, 0))
+		Lobby.connect("player_disconnected_message", self, "_on_player_disconnected")
 	else:
 		rpc("send_message_online", "-- " + Network.username + " has joined the game --", Color(1, 1, 0))
 
@@ -58,3 +54,10 @@ remotesync func send_message_online(message, color):
 
 func _on_MessagesFadeOutTimer_timeout():
 	$ChatBox.hide()
+
+func _on_player_disconnected(username):
+	if is_network_master():
+		rpc("send_message_online", "{name} disconnected".format({"name": username}), Color.red)
+	pass
+	
+

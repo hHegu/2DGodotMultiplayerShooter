@@ -9,6 +9,8 @@ func _ready():
 	current = is_network_master()
 
 func _physics_process(delta):
+	if Game.is_paused:
+		return
 	var parent_pos = get_parent().global_position
 	var mouse_pos = get_global_mouse_position()
 	var target_pos = (mouse_pos - parent_pos)

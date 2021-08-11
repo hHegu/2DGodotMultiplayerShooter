@@ -1,41 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UI/PreGameLobby.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
 [ext_resource path="res://UI/ServerBrowser.tscn" type="PackedScene" id=3]
 [ext_resource path="res://themes/pixel.tres" type="Theme" id=4]
+[ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=5]
 
 [node name="Main" type="Node"]
 script = ExtResource( 2 )
-
-[node name="ServerBrowser" parent="." instance=ExtResource( 3 )]
-
-[node name="Username" parent="ServerBrowser/Menu" index="0"]
-margin_right = 563.0
-
-[node name="Label2" parent="ServerBrowser/Menu" index="1"]
-margin_right = 563.0
-
-[node name="Host" parent="ServerBrowser/Menu" index="2"]
-margin_right = 563.0
-
-[node name="LocalIP" parent="ServerBrowser/Menu" index="3"]
-margin_right = 563.0
-
-[node name="Label" parent="ServerBrowser/Menu" index="4"]
-margin_right = 563.0
-
-[node name="Join" parent="ServerBrowser/Menu" index="5"]
-margin_right = 563.0
-
-[node name="Connect" parent="ServerBrowser/Menu" index="6"]
-margin_right = 563.0
-
-[node name="Error" parent="ServerBrowser/Menu" index="7"]
-margin_right = 563.0
-
-[node name="PreGameLobby" parent="." instance=ExtResource( 1 )]
-visible = false
 
 [node name="World" type="Node" parent="."]
 
@@ -54,8 +26,41 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="text_entered" from="ServerBrowser/Menu/Username" to="." method="_on_text_entered"]
-[connection signal="pressed" from="ServerBrowser/Menu/Host" to="." method="_on_Host_pressed"]
-[connection signal="pressed" from="ServerBrowser/Menu/Join" to="." method="_on_Join_pressed"]
+[node name="ServerBrowser" parent="CanvasLayer" instance=ExtResource( 3 )]
 
-[editable path="ServerBrowser"]
+[node name="Username" parent="CanvasLayer/ServerBrowser/Menu" index="0"]
+margin_right = 563.0
+
+[node name="Label2" parent="CanvasLayer/ServerBrowser/Menu" index="1"]
+margin_right = 563.0
+
+[node name="Host" parent="CanvasLayer/ServerBrowser/Menu" index="2"]
+margin_right = 563.0
+
+[node name="LocalIP" parent="CanvasLayer/ServerBrowser/Menu" index="3"]
+margin_right = 563.0
+
+[node name="Label" parent="CanvasLayer/ServerBrowser/Menu" index="4"]
+margin_right = 563.0
+
+[node name="Join" parent="CanvasLayer/ServerBrowser/Menu" index="5"]
+margin_right = 563.0
+
+[node name="Connect" parent="CanvasLayer/ServerBrowser/Menu" index="6"]
+margin_right = 563.0
+
+[node name="Error" parent="CanvasLayer/ServerBrowser/Menu" index="7"]
+margin_right = 563.0
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 5 )]
+visible = false
+mouse_filter = 0
+
+[node name="PreGameLobby" parent="CanvasLayer" instance=ExtResource( 1 )]
+visible = false
+
+[connection signal="text_entered" from="CanvasLayer/ServerBrowser/Menu/Username" to="." method="_on_text_entered"]
+[connection signal="pressed" from="CanvasLayer/ServerBrowser/Menu/Host" to="." method="_on_Host_pressed"]
+[connection signal="pressed" from="CanvasLayer/ServerBrowser/Menu/Join" to="." method="_on_Join_pressed"]
+
+[editable path="CanvasLayer/ServerBrowser"]

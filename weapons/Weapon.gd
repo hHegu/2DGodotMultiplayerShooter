@@ -59,7 +59,7 @@ func toggle_visibility(is_visible: bool):
 	visible = is_visible
 
 func _physics_process(delta):
-	if disabled:
+	if disabled or Game.is_paused:
 		return
 	mouse_pos = get_global_mouse_position()
 	player_pos = get_parent().get_parent().get_parent().get_parent().global_position

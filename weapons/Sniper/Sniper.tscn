@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/weapons/sniper.png" type="Texture" id=1]
 [ext_resource path="res://weapons/Weapon.gd" type="Script" id=2]
 [ext_resource path="res://weapons/ShellEmitter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/sniper_shell.png" type="Texture" id=4]
+[ext_resource path="res://assets/Sounds/Weapons/522359__filmmakersmanual__sniper-rifle-firing-shot-4.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/Sounds/Weapons/522471__filmmakersmanual__sniper-rifle-loading-ammo-1.wav" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fire"
@@ -58,6 +60,30 @@ tracks/3/keys = {
 "method": "spawn_shell"
 } ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sniper_sound:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Reload_sound:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.7 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="Sniper" type="Node2D"]
 position = Vector2( -1.46793, 0.420925 )
@@ -97,3 +123,12 @@ anims/fire = SubResource( 1 )
 [node name="ShellEmitter" parent="." instance=ExtResource( 3 )]
 position = Vector2( 3.92109, -0.0417137 )
 shell_texture = ExtResource( 4 )
+
+[node name="Sniper_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+max_distance = 600.0
+
+[node name="Reload_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+volume_db = -20.0
+max_distance = 400.0

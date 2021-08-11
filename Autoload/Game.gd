@@ -1,9 +1,15 @@
 extends Node
 
+var RESPAWN_TIME := 6.0
+
+var is_paused := false setget set_paused
+
 var red_score = 0
 var blue_score = 0
 
 signal score_changed
+signal pause_state_changed
+signal local_player_has_died
 
 
 var flag_res = preload("res://objectives/Flag.tscn")
@@ -14,6 +20,10 @@ remotesync func set_score(blue: int, red: int):
 	blue_score = blue
 	
 	emit_signal("score_changed")
+	
+func set_paused(p: bool):
+	is_paused = p
+	emit_signal("pause_state_changed")
 
 
 func add_score_for_team(team: String):

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/396015__morganpurkis__silenced-gunshot-4.wav-3951d70763e0391a4060683273b2a767.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/Weapons/396015__morganpurkis__silenced-gunshot-4.wav"
+dest_files=[ "res://.import/396015__morganpurkis__silenced-gunshot-4.wav-3951d70763e0391a4060683273b2a767.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

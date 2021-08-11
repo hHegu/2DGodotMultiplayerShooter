@@ -72,7 +72,7 @@ remotesync func trigger_loads():
 	get_tree().get_root().find_node("PreGameLobby", true, false).visible = false
 	
 	var ui_instance = load(game_ui).instance()
-	get_tree().get_root().find_node("Main", true, false).add_child(ui_instance)
+	get_tree().get_root().find_node("CanvasLayer", true, false).add_child(ui_instance)
 	
 	yield(get_tree().create_timer(0.01), "timeout")
 	

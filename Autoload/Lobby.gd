@@ -4,6 +4,7 @@ extends Node
 var players: Dictionary = {}
 
 signal player_joined
+signal player_disconnected_message
 
 var blue_player_count := 0
 var red_player_count := 0
@@ -48,6 +49,7 @@ remotesync func set_players(new_players):
 
 func _on_network_peer_disconnected(id):
 	if get_tree().is_network_server():
+		emit_signal("player_disconnected_message", players[id].username)
 		players.erase(id)
 		rpc("set_players", players)
 		

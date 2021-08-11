@@ -41,6 +41,8 @@ func _ready():
 	_on_network_peer_connected("")
 	hp_bar.value = health
 	
+	respawn_timer.wait_time = Game.RESPAWN_TIME
+	
 	if is_network_master():
 		var me = Lobby.players[get_network_master()]
 		rpc("share_name", me.username, me.team)
@@ -90,6 +92,7 @@ func die():
 	death_effect_instance.global_position = global_position
 	get_parent().add_child(death_effect_instance)
 	if is_network_master():
+		Game.emit_signal("local_player_has_died")
 		respawn_timer.start()
 
 
@@ -172,11 +175,8 @@ func handle_animations() -> void:
 		
 func play_anim(anim: String, replay_if_already_playing := false):
 	var current_scale_x = animated_sprite.scale.x
-	if (global_position - get_global_mouse_position()).x > 0:
-		animated_sprite.scale.x = -1
-	else:
-		animated_sprite.scale.x = 1
-	
+	if !Game.is_paused:
+		handle_flip()
 	if anim != animated_sprite.animation || current_scale_x != animated_sprite.scale.x:
 		animated_sprite.play(anim)
 		rpc_unreliable("play_anim_sync", anim, animated_sprite.scale.x)
@@ -185,6 +185,11 @@ func play_anim(anim: String, replay_if_already_playing := false):
 func on_hit(damage: int):
 	rpc("set_health", health - damage)
 
+func handle_flip():
+	if (global_position - get_global_mouse_position()).x > 0:
+		animated_sprite.scale.x = -1
+	else:
+		animated_sprite.scale.x = 1
 
 func _on_RespawnTimer_timeout():
 	var id = get_tree().get_network_unique_id()
