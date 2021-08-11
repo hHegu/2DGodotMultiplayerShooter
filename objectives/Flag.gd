@@ -25,9 +25,11 @@ func _ready():
 	sprite.playing = true
 
 	add_to_group("{team}_flag".format({"team": team}))
-
+	
+	yield(get_tree(), "idle_frame")
+	
 	set_network_master(1)
-	set_physics_process(is_network_master())
+	set_physics_process(get_tree().is_network_server())
 
 remotesync func set_pos(data):
 	position = data

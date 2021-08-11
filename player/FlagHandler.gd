@@ -27,12 +27,11 @@ remotesync func drop_flag(id):
 	var flag = flag_res.instance()
 	var my_team = Lobby.players[id].team
 	flag.team = "blue" if my_team == "red" else "red"
-	flag.name = "{team}_flag".format({"team": my_team})
 	flag.global_position = global_position
 	flag.is_in_base = false
 	get_parent().get_parent().get_parent().add_child(flag)
 	slot.visible = false
-
+#
 	if get_tree().is_network_server():
 		flag.apply_impulse(Vector2.ZERO, Vector2.UP * 50)
 
@@ -51,12 +50,12 @@ remotesync func set_carrying(carrying: bool):
 	slot.visible = carrying
 
 func _on_FlagHandler_area_entered(area):
-	if !get_parent().get_parent().is_dead && get_tree().is_network_server():
+	if !get_parent().get_parent().is_dead && is_network_master():
 		var flag: RigidBody2D = area.get_parent()
 		var my_team = Lobby.players[get_network_master()].team
 		if flag.team == my_team:
 			if flag.is_in_base && is_carrying:
-				Game.rpc("reset_flag", "red" if my_team == "blue" else "blue")
+				Game.rpc("reset_flag", "red" if my_team == "blue" else "blue", randi())
 				rpc("set_carrying", false)
 				Game.add_score_for_team(my_team)
 			return

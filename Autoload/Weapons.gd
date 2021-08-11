@@ -22,3 +22,12 @@ var _weapons_list = {
 
 func get_weapon_instance(weapon: int):
 	return _weapons_list[weapon].instance()
+
+func get_random_weapon_indexes():
+	var w1 = randi() % _weapons_list.size()
+	var w2 = randi() % _weapons_list.size()
+	while w1 == w2:
+		w2 = randi() % _weapons_list.size()
+	
+	return [w1, w2]
+		

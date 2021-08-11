@@ -5,7 +5,7 @@ onready var slot_1 = $WeaponSlot1
 onready var slot_2 = $WeaponSlot2
 
 var weapons = [
-	Weapons.w_smg,
+	Weapons.w_shotgun,
 	Weapons.w_sniper
 ]
 
@@ -21,11 +21,11 @@ func _ready():
 
 	set_physics_process(is_network_master())
 
-	get_parent().get_parent().connect("on_death", self, "disable_weapons")
+	get_parent().get_parent().connect("on_death", self, "_on_death")
 	get_parent().get_parent().connect("on_respawn", self, "enable_weapons")
 	
 	if is_network_master():
-		rpc("add_starting_weapons", get_network_master())
+		rpc("randomize_weapons", get_network_master(), Weapons.get_random_weapon_indexes())
 	
 	
 func _physics_process(delta):
@@ -34,7 +34,13 @@ func _physics_process(delta):
 	var weapon_1_pressed = Input.is_action_just_pressed("weapon_1")
 	var weapon_2_pressed = Input.is_action_just_pressed("weapon_2")
 	if weapon_1_pressed && current_weapon != 0 || weapon_2_pressed && current_weapon != 1:
-		rpc("switch_weapon")
+		rpc("switch_weapon", 0 if current_weapon == 1 else 1)
+
+
+func _on_death():
+	if is_network_master():
+		rpc("randomize_weapons", get_network_master(), Weapons.get_random_weapon_indexes())
+	disable_weapons()
 
 
 func disable_weapons():
@@ -53,9 +59,16 @@ func enable_weapons():
 		w2.toggle_visibility(current_weapon == 1)
 
 
-remotesync func add_starting_weapons(id):
-	var w1_instance = weapons[0].instance()
-	var w2_instance = weapons[1].instance()
+remotesync func randomize_weapons(id, weapons):
+	for w1 in slot_1.get_children():
+		slot_1.remove_child(w1)
+		w1.queue_free()
+	for w2 in slot_2.get_children():
+		slot_2.remove_child(w2)
+		w2.queue_free()
+
+	var w1_instance = Weapons.get_weapon_instance(weapons[0])
+	var w2_instance = Weapons.get_weapon_instance(weapons[1])
 	
 	w2_instance.toggle_visibility(false)
 	
@@ -66,8 +79,8 @@ remotesync func add_starting_weapons(id):
 	slot_2.add_child(w2_instance)
 
 
-remotesync func switch_weapon():
-	current_weapon = 0 if current_weapon == 1 else 1
+remotesync func switch_weapon(wi):
+	current_weapon = wi
 	for w1 in slot_1.get_children():
 		w1.toggle_visibility(current_weapon == 0)
 	for w2 in slot_2.get_children():

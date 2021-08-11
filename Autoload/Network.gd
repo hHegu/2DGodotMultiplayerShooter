@@ -30,7 +30,7 @@ func _ready():
 
 func create_server(username_chosen):
 	var peer = NetworkedMultiplayerENet.new()
-	peer.create_server(4242, 32)
+	peer.create_server(7777, 32)
 	get_tree().set_network_peer(peer)
 	my_peer = peer
 	
@@ -42,10 +42,11 @@ func create_server(username_chosen):
 	if spawn_for_host:
 		Lobby.add_host()
 
+
 func join_server(to_ip, username_chosen):
 	username = username_chosen
 	var peer = NetworkedMultiplayerENet.new()
-	peer.create_client(to_ip, 4242)
+	peer.create_client(to_ip, 7777)
 	get_tree().set_network_peer(peer)
 	my_peer = peer
 
@@ -62,7 +63,9 @@ func back_to_lobby():
 
 func load_game():
 	rpc("trigger_loads")
-	
+	Game.add_flags()
+
+
 remotesync func trigger_loads():
 	var map_resource = load(map)
 	var map_instance = map_resource.instance()
@@ -76,17 +79,17 @@ remotesync func trigger_loads():
 	
 	if !get_tree().is_network_server() or spawn_for_host:
 		var id = get_tree().get_network_unique_id()
-		print(id)
-		print(Lobby.players)
 		var team = Lobby.players[id]["team"]
 		spawn = get_spawn_location(team)
 		rpc("remote_load_game", get_tree().get_network_unique_id(), spawn.global_transform)
+
 
 remotesync func remote_load_game(id: int, spawn_pos: Transform2D):
 	
 	yield(get_tree().create_timer(0.01), "timeout")
 
 	spawn_player(id, spawn_pos)
+
 
 func get_spawn_location(team: String):
 	var spawner = get_tree().get_root().find_node("{team}_spawners".format({"team": team}), true, false)
@@ -102,10 +105,12 @@ func spawn_player(id, position):
 	
 	player_instance.set_network_master(id)
 
+
 func get_IP():
 	for ip in IP.get_local_addresses():
 		if ip.begins_with("192.168."):
 			return ip
+
 
 # Spawn the other players that connected exepted from the server:
 func _on_network_peer_connected(id):
@@ -113,10 +118,12 @@ func _on_network_peer_connected(id):
 #	if id != 1 and !spawn_for_host: # If this is not the server spawn the player
 #		spawn_player(id)
 
+
 func _on_network_peer_disconnected(id):
 #	if id != 1 or spawn_for_host:
 #		get_tree().get_root().find_node(str(id), true, false).queue_free()
 	pass
+
 
 func _on_connected_to_server():
 	load_lobby()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://UI/PreGameLobby.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
 [ext_resource path="res://UI/ServerBrowser.tscn" type="PackedScene" id=3]
+[ext_resource path="res://themes/pixel.tres" type="Theme" id=4]
 
 [node name="Main" type="Node"]
 script = ExtResource( 2 )
@@ -37,6 +38,21 @@ margin_right = 563.0
 visible = false
 
 [node name="World" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -16.0
+margin_top = -8.0
+theme = ExtResource( 4 )
+text = "v. 0.1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="text_entered" from="ServerBrowser/Menu/Username" to="." method="_on_text_entered"]
 [connection signal="pressed" from="ServerBrowser/Menu/Host" to="." method="_on_Host_pressed"]
