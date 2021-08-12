@@ -36,6 +36,7 @@ Network="*res://Autoload/Network.gd"
 Lobby="*res://Autoload/Lobby.gd"
 Weapons="*res://Autoload/Weapons.gd"
 Game="*res://Autoload/Game.gd"
+Settings="*res://Autoload/Settings.gd"
 
 [debug]
 

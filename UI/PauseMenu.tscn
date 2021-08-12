@@ -29,38 +29,78 @@ margin_top = -136.0
 margin_right = 240.0
 margin_bottom = 136.0
 color = Color( 0, 0, 0, 0.509804 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="SubMenus" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="VBoxContainer" parent="SubMenus"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -60.0
-margin_top = -99.0
-margin_right = 61.0
-margin_bottom = 99.0
+margin_left = 160.0
+margin_top = 17.0
+margin_right = 281.0
+margin_bottom = 215.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ResumeButton" type="Button" parent="VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="SubMenus/MainMenu"]
 margin_top = 75.0
 margin_right = 121.0
 margin_bottom = 88.0
 text = "Resume"
 
-[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="SubMenus/MainMenu"]
 margin_top = 92.0
 margin_right = 121.0
 margin_bottom = 105.0
 text = "Settings"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="QuitButton" type="Button" parent="SubMenus/MainMenu"]
 margin_top = 109.0
 margin_right = 121.0
 margin_bottom = 122.0
 text = "Quit"
 
-[connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[node name="Settings" type="VBoxContainer" parent="SubMenus"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 160.0
+margin_top = 17.0
+margin_right = 281.0
+margin_bottom = 215.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CameraFollowSetting" type="CheckBox" parent="SubMenus/Settings"]
+margin_top = 78.0
+margin_right = 121.0
+margin_bottom = 102.0
+text = "Camera follows mouse"
+
+[node name="SettingsBackButton" type="Button" parent="SubMenus/Settings"]
+margin_top = 106.0
+margin_right = 121.0
+margin_bottom = 119.0
+text = "back"
+
+[connection signal="pressed" from="SubMenus/MainMenu/ResumeButton" to="." method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="SubMenus/MainMenu/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="SubMenus/MainMenu/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="SubMenus/Settings/CameraFollowSetting" to="." method="_on_CameraFollowSetting_pressed"]
+[connection signal="pressed" from="SubMenus/Settings/SettingsBackButton" to="." method="_on_SettingsBackButton_pressed"]

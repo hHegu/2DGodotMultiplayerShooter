@@ -15,4 +15,4 @@ func _physics_process(delta):
 	var mouse_pos = get_global_mouse_position()
 	var target_pos = (mouse_pos - parent_pos)
 	
-	global_position = parent_pos + target_pos if unlocked else parent_pos + target_pos.clamped(MAX_VIEW_DISTANCE)
+	global_position = parent_pos + target_pos if unlocked else parent_pos + target_pos.clamped(MAX_VIEW_DISTANCE if Settings.camera_follows_mouse else 0)
